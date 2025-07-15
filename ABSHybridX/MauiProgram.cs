@@ -28,6 +28,9 @@ namespace ABSHybridX
 
             builder.SetupConfiguration();
             builder.Services.ConfigureLoggerService();
+            builder.Services.ConfigureRepositoryManager();
+            builder.Services.ConfigureServiceManager();
+            builder.Services.ConfigureSqlContext(builder.Configuration);
 
             builder.Services.AddSingleton<BackgroundTask>(sp => new BackgroundTask(TimeSpan.FromMilliseconds(1000)));
 
