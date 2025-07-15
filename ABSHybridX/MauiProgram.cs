@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ABSHybridX.ServiceTimers;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.Extensions.Logging;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace ABSHybridX
 {
@@ -15,9 +19,25 @@ namespace ABSHybridX
                 });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddFluentUIComponents();
+
+            builder.Services.AddSingleton<BackgroundTask>(sp => new BackgroundTask(TimeSpan.FromMilliseconds(1000)));
 
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
+            var env = "Development";
+#else
+        var env = "Production";
+#endif
+
+            builder.Services.AddSingleton<IHostEnvironment>(sp =>
+            new HostingEnvironment
+            {
+                EnvironmentName = env, // Or get from config
+                ApplicationName = AppDomain.CurrentDomain.FriendlyName
+            });
+
+#if DEBUG
+            builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
 
