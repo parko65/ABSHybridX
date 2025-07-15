@@ -1,8 +1,10 @@
-﻿using ABSHybridX.ServiceTimers;
+﻿using ABSHybridX.Extensions;
+using ABSHybridX.ServiceTimers;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
+using NLog;
 
 namespace ABSHybridX
 {
@@ -11,6 +13,9 @@ namespace ABSHybridX
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
+            LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -20,6 +25,9 @@ namespace ABSHybridX
 
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddFluentUIComponents();
+
+            builder.SetupConfiguration();
+            builder.Services.ConfigureLoggerService();
 
             builder.Services.AddSingleton<BackgroundTask>(sp => new BackgroundTask(TimeSpan.FromMilliseconds(1000)));
 
