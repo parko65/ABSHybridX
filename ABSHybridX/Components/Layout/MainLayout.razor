@@ -59,9 +59,9 @@
     <FluentFooter>
         <a href="privacy">Privacy Information</a>
         <FluentSpacer />
-        <a href="">&copy; 2025 - Road Builder @(Host.IsDevelopment() ? "(Development)" : "(Production)" )</a>
+        <a href="">&copy; 2025 - ABS Hybrid X @_version</a>
         <FluentSpacer />
-        <a href="about">About Road Builder Hybrid</a>
+        <a href="about">ABS Hybrid X</a>
     </FluentFooter>
 </FluentLayout>
 
@@ -80,5 +80,17 @@
     protected override void OnParametersSet()
     {
         _errorBoundary?.Recover();
+    }
+
+    // Get the current version of the application
+    private string? _version;
+
+    protected override void OnInitialized()
+    {
+        // Initialize the version from the assembly information
+        _version = System.Reflection.Assembly.GetExecutingAssembly()
+            .GetName()
+            .Version?
+            .ToString();
     }
 }

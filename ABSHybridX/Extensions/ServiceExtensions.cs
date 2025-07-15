@@ -16,7 +16,7 @@ public static class ServiceExtensions
     public static void SetupConfiguration(this MauiAppBuilder builder)
     {
         var assembly = Assembly.GetExecutingAssembly();
-        using Stream? stream = assembly.GetManifestResourceStream("ABS.Hybrid.appsettings.json")
+        using Stream? stream = assembly.GetManifestResourceStream("ABSHybridX.appsettings.json")
             ?? throw new FileNotFoundException("appsettings.json not found in the assembly manifest resources.");
         var config = new ConfigurationBuilder()
             .AddJsonStream(stream)
