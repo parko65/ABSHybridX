@@ -32,6 +32,8 @@ namespace ABSHybridX
             builder.Services.ConfigureServiceManager();
             builder.Services.ConfigureSqlContext(builder.Configuration);
 
+            builder.Services.AddAutoMapper(typeof(MauiProgram));
+
             builder.Services.AddSingleton<BackgroundTask>(sp => new BackgroundTask(TimeSpan.FromMilliseconds(1000)));
 
 #if DEBUG
