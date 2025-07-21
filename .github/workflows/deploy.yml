@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -53,7 +53,7 @@ jobs:
         echo "version=$($version)" >> $env:GITHUB_OUTPUT
 
     - name: Create Tag
-      uses: actions/github-script@v5
+      uses: actions/github-script@v7.0.1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -73,7 +73,7 @@ jobs:
       run: Rename-Item ./ABSHybridX/bin/Release/net9.0-windows10.0.19041.0/win10-x64/AppPackages/ABSHybridX_${{ steps.extractVersion.outputs.version }}.0_Test/ABSHybridX_${{ steps.extractVersion.outputs.version }}.0_x64.cer ABSHybridX.cer
 
     - name: Create Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ steps.extractVersion.outputs.version }}
         files: | 
