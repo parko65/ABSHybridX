@@ -12,5 +12,9 @@ public class MappingProfile : Profile
         // CreateMap<SourceModel, DestinationModel>();
 
         CreateMap<Recipe, RecipeDto>();
+
+        CreateMap<HotBin, HotBinDto>();
+
+        CreateMap<Aggregate, AggregateDto>();
     }
 }

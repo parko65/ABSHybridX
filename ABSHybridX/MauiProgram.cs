@@ -28,6 +28,7 @@ namespace ABSHybridX
             builder.Services.AddFluentUIComponents();
 
             builder.SetupConfiguration();
+            builder.ConfigureAppSettings();
             builder.Services.ConfigureLoggerService();
             builder.Services.ConfigureRepositoryManager();
             builder.Services.ConfigureServiceManager();
