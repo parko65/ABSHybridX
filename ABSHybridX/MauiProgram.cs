@@ -1,5 +1,6 @@
 ﻿using ABSHybridX.Extensions;
 using ABSHybridX.ServiceTimers;
+using Entities.ConfigurationOptions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
@@ -35,6 +36,13 @@ namespace ABSHybridX
             builder.Services.AddAutoMapper(typeof(MauiProgram));
 
             builder.Services.AddSingleton<BackgroundTask>(sp => new BackgroundTask(TimeSpan.FromMilliseconds(1000)));
+
+            builder.Services.AddOptions<PLCConfigurationOptions>()
+                .BindConfiguration("PLCConfiguration")
+                .Validate(options => !string.IsNullOrWhiteSpace(options.IPAddress), "PLC IP Address is required");
+
+            builder.Services.AddOptions<StorageConfigurationOptions>()
+                .BindConfiguration("StorageConfiguration");
 
 #if DEBUG
             var env = "Development";
