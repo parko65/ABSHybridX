@@ -2,5 +2,7 @@
 
 public interface IServiceManager
 {
-    IRecipeService RecipeService { get; }    
+    IRecipeService RecipeService { get; }
+    IHotBinService HotBinService { get; }
+    IAggregateService AggregateService { get; }
 }

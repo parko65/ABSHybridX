@@ -17,5 +17,7 @@ public class RepositoryContext : DbContext
     }
 
     public DbSet<Recipe>? Recipes { get; set; }
+    public DbSet<HotBin>? HotBins { get; set; }
+    public DbSet<Aggregate>? Aggregates { get; set; }
 
 }

@@ -20,7 +20,9 @@ public class RecipeRepository : RepositoryBase<Recipe>, IRecipeRepository
 
     public async Task<Recipe?> GetRecipeAsync(int recipeId, bool trackChanges)
     {
-        return await FindByCondition(r => r.Id == recipeId, trackChanges)            
+        return await FindByCondition(r => r.Id.Equals(recipeId), trackChanges)            
             .SingleOrDefaultAsync();
-    }    
+    }
+
+    public void CreateRecipe(Recipe recipe) => Create(recipe);
 }

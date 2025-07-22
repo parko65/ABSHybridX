@@ -39,5 +39,21 @@ internal sealed class RecipeService : IRecipeService
         return recipeDto;
     }
 
-    
+    public async Task<RecipeDto> CreateRecipeAsync(RecipeForCreationDto recipeForCreation)
+    {
+        var recipeEntity = _mapper.Map<Entities.Models.Recipe>(recipeForCreation);
+
+        // Set default values for the recipe entity
+        recipeEntity.CreatedDate = DateTime.Now;
+        recipeEntity.IsValid = true;
+        recipeEntity.VersionNumber = 1;
+
+        _repository.Recipe.CreateRecipe(recipeEntity);
+        await _repository.SaveAsync();
+
+        var recipeToReturn = _mapper.Map<RecipeDto>(recipeEntity);
+
+        return recipeToReturn;
+    }
+
 }

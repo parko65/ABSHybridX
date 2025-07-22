@@ -27,7 +27,7 @@
         <ApplicationId>Hesler.Automation.ABSHybridX</ApplicationId>
 
         <!-- Versions -->
-        <ApplicationDisplayVersion>1.0.8</ApplicationDisplayVersion>        
+        <ApplicationDisplayVersion>1.0.9</ApplicationDisplayVersion>        
 
         <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
         <!--<WindowsPackageType>None</WindowsPackageType>-->
@@ -81,6 +81,10 @@
       <ProjectReference Include="..\LoggerService\LoggerService.csproj" />
       <ProjectReference Include="..\Repository\Repository.csproj" />
       <ProjectReference Include="..\Service\Service.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Components\Pages\Common\" />
     </ItemGroup>
 
 </Project>
