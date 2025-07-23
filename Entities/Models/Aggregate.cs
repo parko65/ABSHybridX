@@ -5,7 +5,7 @@ public class Aggregate
 {
     [Column("AggregateId")]
     public int Id { get; set; }
-
+    public int Materialnumber { get; set; }
     public string? Name { get; set; }
     public int? HotBinId { get; set; }
     public HotBin? HotBin { get; set; }

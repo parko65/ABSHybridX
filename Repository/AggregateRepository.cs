@@ -14,7 +14,7 @@ public class AggregateRepository : RepositoryBase<Aggregate>, IAggregateReposito
     public async Task<IEnumerable<Aggregate>> GetAggregatesAsync(bool trackChanges)
     {
         return await FindAll(trackChanges)
-            .OrderBy(a => a.Name)
+            .OrderBy(a => a.Materialnumber)
             .ToListAsync();
     }
 

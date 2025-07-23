@@ -8,9 +8,14 @@
         <FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded" CustomToggle="true">
             <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">Dashboard</FluentNavLink>
             <FluentNavLink Href="recipe/editor" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">Recipe Editor</FluentNavLink>
-            <FluentNavGroup Title="Materials" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">
-                <FluentNavLink Href="material/definitions" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">Definitions</FluentNavLink>
-                <FluentNavLink Href="material/loading" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">Loading</FluentNavLink>
+            <FluentNavGroup Title="Configuration" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">
+                <FluentNavGroup Title="Material Definitions" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">
+                    <FluentNavLink Href="material/aggregate-definitions" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">Agg. Hot Bins</FluentNavLink>
+                    <FluentNavLink Href="material/bitumen-definitions" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">Bitumen</FluentNavLink>
+                </FluentNavGroup>
+                <FluentNavGroup Title="Material Loading" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">
+                    <FluentNavLink Href="material/aggregate-loading" Icon="@(new Icons.Regular.Size20.ContentViewGallery())" IconColor="Color.Accent">Agg. Hot Bins</FluentNavLink>
+                </FluentNavGroup>
             </FluentNavGroup>
 
             @if (Host.IsDevelopment())

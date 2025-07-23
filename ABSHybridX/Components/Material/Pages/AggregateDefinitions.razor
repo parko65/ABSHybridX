@@ -1,0 +1,56 @@
+﻿@page "/material/aggregate-definitions"
+@using ABSHybridX.Components.Common
+@using Shared.DataTransferObjects
+
+<FluentGrid AdaptiveRendering="true" Justify="JustifyContent.FlexStart">
+    <FluentGridItem xs="3">
+        <PageHeader Title="Aggregate Hot Bins" Typo="Typography.Header" Icon="@(new Icons.Regular.Size24.EditSettings())" />
+    </FluentGridItem>
+</FluentGrid>
+
+<FluentGrid AdaptiveRendering="true" Justify="JustifyContent.FlexStart">
+    <FluentGridItem xs="9">
+        <FluentDataGrid Items="Aggregates" ShowHover="true" GridTemplateColumns="0.1fr 0.9fr" TGridItem="AggregateDto" OnRowClick="HandleRowClick" RowClass="GetRowClass">
+            <PropertyColumn Property="@(a => a.Materialnumber)" Title="Material Number" />
+            <PropertyColumn Property="@(a => a.Name)" Title="Name" />
+        </FluentDataGrid>
+    </FluentGridItem>
+</FluentGrid>
+
+<br />
+
+<FluentCard Width="600px" Height="400px">
+    <EditForm EditContext="_editContext" OnValidSubmit="CreateAggregateAsync">
+        <DataAnnotationsValidator />
+        <FluentValidationSummary />
+
+        <FluentStack Orientation="Orientation.Vertical">
+
+            <div>
+                <FluentTextField @bind-Value="_aggregateInput.MaterialNumber" Label="Material Number" Required AutoComplete="off" />
+                <FluentValidationMessage For="@(() => _aggregateInput.MaterialNumber)" />
+            </div>
+            <div>
+                <FluentTextField @bind-Value="_aggregateInput.Name" Label="Name" Required AutoComplete="off" />
+                <FluentValidationMessage For="@(() => _aggregateInput.Name)" />
+            </div>           
+
+        </FluentStack>
+
+        <br />
+
+        <FluentStack Orientation="Orientation.Horizontal">
+            <FluentButton Appearance="Appearance.Outline" IconStart="@(new Icons.Regular.Size16.Add())" OnClick="CreateNewDto">
+                Add Aggregate
+            </FluentButton>
+            <FluentButton Appearance="Appearance.Outline" IconStart="@(new Icons.Regular.Size16.Edit())" Disabled="formInvalid">
+                Edit Aggregate
+            </FluentButton>
+            <FluentButton Appearance="Appearance.Outline" Disabled="@(SelectedAggregate == null ? true : false)">
+                <FluentIcon Value="@(new Icons.Regular.Size16.Delete())" Color="Color.Error" Slot="start" />
+                Delete Aggregate
+            </FluentButton>
+            <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Outline" IconStart="@(new Icons.Regular.Size16.Checkmark())">Save Changes</FluentButton>
+        </FluentStack>
+    </EditForm>    
+</FluentCard>

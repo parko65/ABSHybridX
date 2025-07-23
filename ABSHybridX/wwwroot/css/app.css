@@ -10,7 +10,7 @@ body {
 
 .navmenu {
     background: var(--neutral-layer-3);
-    color: var(--neutral-foreground-rest);
+    /*color: var(--neutral-foreground-rest);*/
 }
 
 .navmenu-icon {

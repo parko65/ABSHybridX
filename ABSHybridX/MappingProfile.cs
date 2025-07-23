@@ -16,5 +16,6 @@ public class MappingProfile : Profile
         CreateMap<HotBin, HotBinDto>();
 
         CreateMap<Aggregate, AggregateDto>();
+        CreateMap<AggregateForCreationDto, Aggregate>();
     }
 }
