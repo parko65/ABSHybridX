@@ -8,6 +8,11 @@ body {
     margin: 0;
 }
 
+.navmenu {
+    background: var(--neutral-layer-3);
+    color: var(--neutral-foreground-rest);
+}
+
 .navmenu-icon {
     display: none;
 }
@@ -157,7 +162,7 @@ code {
 
     .navmenu {
         width: 100%;
-        background: var(--neutral-layer-3);
+        background: var(--neutral-layer-3);        
     }
 
     #navmenu-toggle {
