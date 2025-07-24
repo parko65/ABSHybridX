@@ -17,5 +17,6 @@ public class MappingProfile : Profile
 
         CreateMap<Aggregate, AggregateDto>();
         CreateMap<AggregateForCreationDto, Aggregate>();
+        CreateMap<AggregateForUpdateDto, Aggregate>();
     }
 }

@@ -1,5 +1,5 @@
 ﻿namespace Shared.DataTransferObjects;
-public record AggregateForCreationDto
+public record AggregateForUpdateDto
 {
     public int MaterialNumber { get; init; }
     public string? Name { get; init; }

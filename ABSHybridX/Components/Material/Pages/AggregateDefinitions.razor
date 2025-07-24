@@ -23,13 +23,16 @@
     <EditForm EditContext="_editContext" OnValidSubmit="SaveAggregateAsync">
         <DataAnnotationsValidator />
         <FluentValidationSummary />
+        <FluentStack Orientation="Orientation.Vertical">
 
-         
             <div>
-                <FluentTextField @bind-Value="_aggregateInput.MaterialNumber" Label="Material Number" Required AutoComplete="off" />
-            <Component />luentTextField @bind-Value="_aggregateInput.Name" Label="Name" Required AutoComplete="off" />
+                <FluentTextField @bind-Value="_aggregateInput.MaterialNumber" Label="Material Number" Required AutoComplete="off" Disabled="!editMode"/>
+                <FluentValidationMessage For="@(() => _aggregateInput.MaterialNumber)" />
+            </div>
+            <div>
+                <FluentTextField @bind-Value="_aggregateInput.Name" Label="Name" Required AutoComplete="off" Disabled="!editMode"/>
                 <FluentValidationMessage For="@(() => _aggregateInput.Name)" />
-            </div>           
+            </div>
 
         </FluentStack>
 
@@ -39,14 +42,14 @@
             <FluentButton Appearance="Appearance.Outline" IconStart="@(new Icons.Regular.Size16.Add())" OnClick="CreateNewDto">
                 Add Aggregate
             </FluentButton>
-            <FluentButton Appearance="Appearance.Outline" IconStart="@(new Icons.Regular.Size16.Edit())" Disabled="formInvalid">
+            <FluentButton Appearance="Appearance.Outline" IconStart="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => editMode = true)">
                 Edit Aggregate
             </FluentButton>
-            <FluentButton Appearance="Appearance.Outline" Disabled="@(SelectedAggregate == null ? true : false)">
+            <FluentButton Appearance="Appearance.Outline" Disabled="@(SelectedAggregate == null ? true : false)" OnClick="DeleteAggregateAsync">
                 <FluentIcon Value="@(new Icons.Regular.Size16.Delete())" Color="Color.Error" Slot="start" />
                 Delete Aggregate
             </FluentButton>
             <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Outline" IconStart="@(new Icons.Regular.Size16.Checkmark())">Save Changes</FluentButton>
         </FluentStack>
-    </EditForm>    
+    </EditForm>
 </FluentCard>

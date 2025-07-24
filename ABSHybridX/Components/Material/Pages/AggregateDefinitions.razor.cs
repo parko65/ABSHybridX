@@ -22,6 +22,8 @@ public partial class AggregateDefinitions
     private EditContext? _editContext;
 
     private bool formInvalid = true;
+    private bool editMode = false;
+
     private AggregateDto? SelectedAggregate { get; set; }
 
     protected override void OnInitialized()
@@ -53,36 +55,82 @@ public partial class AggregateDefinitions
     {
         _editContext!.Validate();
 
-        //var result = int.TryParse(_aggregateInput.MaterialNumber, out int MaterialNumber);
+        // Check if we have a new aggregate or an existing one
+        if (SelectedAggregate is not null)
+        {
+            // Update existing aggregate
+            var updatedAggregate = new AggregateForUpdateDto
+            {
+                MaterialNumber = int.Parse(_aggregateInput.MaterialNumber),
+                Name = _aggregateInput.Name,
+                HotBinId = _aggregateInput.HotBinId
+            };
 
-        //var aggregateToCreate = new AggregateForCreationDto
-        //{
-        //    Materialnumber = MaterialNumber,
-        //    Name = _aggregateInput.Name
-        //};
+            await _service.AggregateService.UpdateAggregateAsync(SelectedAggregate.Id, updatedAggregate, trackChanges: true);
 
-        //var createdAggregate = await _service.AggregateService.CreateAggregateAsync(aggregateToCreate, trackChanges: false);
+            await LoadAggregatesAsync();
+            editMode = false;
+        }
+        else
+        {
+            // Create new aggregate
+            await CreateNewAggregateAsync();
+        }        
+    }
 
-        //await LoadAggregatesAsync();
+    private async Task CreateNewAggregateAsync()
+    {
+        var aggregateToCreate = new AggregateForCreationDto
+        {
+            MaterialNumber = int.Parse(_aggregateInput.MaterialNumber),
+            Name = _aggregateInput.Name,
+            HotBinId = _aggregateInput.HotBinId
+        };
+        await _service.AggregateService.CreateAggregateAsync(aggregateToCreate, trackChanges: false);
+        await LoadAggregatesAsync();
+
+        CreateNewDto();
     }
 
     private void CreateNewDto()
     {
+        _aggregateInput = new();
         _editContext = new EditContext(_aggregateInput);
+        editMode = true;
     }
 
     private void HandleRowClick(FluentDataGridRow<AggregateDto> agg)
     {
+        // If we hit here we have an aggregate selected
         SelectedAggregate = agg.Item;
 
-        var editModel = new AggregateInputModel
+        if (SelectedAggregate is not null)
         {
-            MaterialNumber = agg.Item.Materialnumber.ToString(),
-            Name = agg.Item.Name ?? string.Empty,
-            HotBinId = agg.Item.HotBinId
-        };
+            var editModel = new AggregateInputModel
+            {
+                MaterialNumber = SelectedAggregate.Materialnumber.ToString(),
+                Name = SelectedAggregate.Name ?? string.Empty,
+                HotBinId = SelectedAggregate.HotBinId
+            };
 
-        _editContext = new EditContext(editModel);
+            _aggregateInput = editModel;
+        }
+
+        _editContext = new EditContext(_aggregateInput);
+        editMode = false;
+
+    }
+
+    private async Task DeleteAggregateAsync()
+    {
+        await _service.AggregateService.DeleteAggregateAsync(SelectedAggregate.Id, trackChanges: true);
+
+        await LoadAggregatesAsync();
+
+        // Reset the input model and selected aggregate
+        CreateNewDto();
+
+        SelectedAggregate = null;
     }
 
     private string? GetRowClass(AggregateDto agg)

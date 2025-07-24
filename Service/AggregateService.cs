@@ -50,4 +50,26 @@ internal sealed class AggregateService : IAggregateService
 
         return aggregateDto;
     }
+
+    public async Task DeleteAggregateAsync(int id, bool trackChanges)
+    {
+        var aggregate = await _repository.Aggregate.GetAggregateAsync(id, trackChanges);
+        if (aggregate is null)
+            throw new AggregateNotFoundException(id);
+
+        _repository.Aggregate.DeleteAggregate(aggregate);
+
+        await _repository.SaveAsync();
+    }
+
+    public async Task UpdateAggregateAsync(int id, AggregateForUpdateDto aggregateForUpdate, bool trackChanges)
+    {
+        var aggregate = await _repository.Aggregate.GetAggregateAsync(id, trackChanges);
+        if (aggregate is null)
+            throw new AggregateNotFoundException(id);
+
+        _mapper.Map(aggregateForUpdate, aggregate);
+
+        await _repository.SaveAsync();
+    }
 }

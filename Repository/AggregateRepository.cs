@@ -29,4 +29,10 @@ public class AggregateRepository : RepositoryBase<Aggregate>, IAggregateReposito
         Create(aggregate);
         // No need to save changes here, as it will be handled by the unit of work in the service layer
     }
+
+    public void DeleteAggregate(Aggregate aggregate)
+    {
+        Delete(aggregate);
+        // No need to save changes here, as it will be handled by the unit of work in the service layer
+    }
 }
