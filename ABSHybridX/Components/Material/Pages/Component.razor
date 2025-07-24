@@ -1,0 +1,7 @@
+@using ABSHybridX.Components.Common
+@using Shared.DataTransferObjects
+
+<div>
+    <FluentTextField @bind-Value="_aggregateInput.MaterialNumber" Label="Material Number" Required AutoComplete="off" />
+    <FluentValidationMessage For="@(() => _aggregateInput.MaterialNumber)" />
+</div>`

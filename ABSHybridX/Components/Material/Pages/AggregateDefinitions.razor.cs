@@ -49,7 +49,7 @@ public partial class AggregateDefinitions
         Aggregates = aggregates.AsQueryable();
     }
 
-    private async Task CreateAggregateAsync()
+    private async Task SaveAggregateAsync()
     {
         _editContext!.Validate();
 
@@ -73,7 +73,16 @@ public partial class AggregateDefinitions
 
     private void HandleRowClick(FluentDataGridRow<AggregateDto> agg)
     {
-        SelectedAggregate = agg.Item;        
+        SelectedAggregate = agg.Item;
+
+        var editModel = new AggregateInputModel
+        {
+            MaterialNumber = agg.Item.Materialnumber.ToString(),
+            Name = agg.Item.Name ?? string.Empty,
+            HotBinId = agg.Item.HotBinId
+        };
+
+        _editContext = new EditContext(editModel);
     }
 
     private string? GetRowClass(AggregateDto agg)
